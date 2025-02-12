@@ -2,3 +2,6 @@
 backend/.DS_Store
 backend/__pycache__/ocr_utils.cpython-311.pyc
 backend/__pycache__/parse_receipt.cpython-311.pyc
+venv/
+/Users/haroldmciver/Desktop/usf spring 25/swe_class/venv/
+.gitignore
