@@ -423,33 +423,20 @@
             const closeButton = document.querySelector('.close');
             const fileExtension = filename.split('.').pop().toLowerCase();
 
-            // Reset display and error message
+            // Reset display
             receiptImage.style.display = 'none';
             receiptPdf.style.display = 'none';
-            errorDiv.textContent = '';
 
             if (fileExtension === 'pdf') {
                 receiptPdf.src = `/uploads/${filename}`;
                 receiptPdf.style.display = 'block';
                 receiptPdf.style.width = '100%';
                 receiptPdf.style.height = '80vh';
-                
-                // Handle PDF load errors
-                receiptPdf.onerror = function() {
-                    console.error('Failed to load PDF file');
-                    modal.style.display = 'none';
-                    errorDiv.textContent = 'Failed to load PDF file';
-                }
+                receiptImage.style.display = 'none';
             } else {
                 receiptImage.src = `/uploads/${filename}`;
                 receiptImage.style.display = 'block';
-                
-                // Handle image load errors
-                receiptImage.onerror = function() {
-                    console.error('Failed to load image file');
-                    modal.style.display = 'none';
-                    errorDiv.textContent = 'Failed to load image file';
-                }
+                receiptPdf.style.display = 'none';
             }
 
             modal.style.display = 'block';
