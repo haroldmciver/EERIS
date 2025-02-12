@@ -89,6 +89,7 @@ def signup():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+    role = data.get('role', 'user')  # Get role from request, default to 'user'
     
     users = load_users()
     
@@ -97,7 +98,8 @@ def signup():
     
     users['users'][username] = {
         'password': password,
-        'created_at': datetime.now().isoformat()
+        'created_at': datetime.now().isoformat(),
+        'role': role  # Add role to user data
     }
     
     save_users(users)
