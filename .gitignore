@@ -1,0 +1,4 @@
+.DS_Store
+backend/.DS_Store
+backend/__pycache__/ocr_utils.cpython-311.pyc
+backend/__pycache__/parse_receipt.cpython-311.pyc
