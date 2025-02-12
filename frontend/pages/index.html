@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Processor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: right">
+            <span style="margin-right: 20px">User: {{ username }}</span>
+            <a href="/logout">logout</a>
+        </div>
+
+        <div class="receipt-upload-container">
+            <div>give me receipt</div>
+            
+            <div class="upload-section">
+                <input type="file" id="receipt-file" accept=".jpg,.jpeg,.png,.pdf">
+                <div>
+                    <button id="process-button" disabled>process receipt</button>
+                </div>
+            </div>
+            
+            <div id="loading" class="loading">
+                processing...
+            </div>
+            
+            <div id="error" class="error"></div>
+        </div>
+        
+        <div id="result" class="result-section">
+            <div>Receipt Details:</div>
+            <div class="edit-group">
+                <div class="edit-item"><span class="edit-label">store:</span><input type="text" id="store-name" class="edit-field"></div>
+                <div class="edit-item"><span class="edit-label">phone:</span><input type="text" id="phone" class="edit-field"></div>
+            </div>
+            <div class="edit-group">
+                <div class="edit-item"><span class="edit-label">website:</span><input type="text" id="website" class="edit-field"></div>
+                <div class="edit-item"><span class="edit-label">address:</span><input type="text" id="address" class="edit-field"></div>
+            </div>
+            <div class="edit-group">
+                <div class="edit-item"><span class="edit-label">date:</span><input type="text" id="date" class="edit-field"></div>
+                <div class="edit-item"><span class="edit-label">time:</span><input type="text" id="time" class="edit-field"></div>
+            </div>
+            
+            <div class="edit-group">
+                <div class="edit-item full-width"><span class="edit-label">items:</span>
+                    <div id="line-items" style="display: inline-block"></div>
+                    <button onclick="addLineItem()" style="vertical-align: top">add item</button>
+                </div>
+            </div>
+            
+            <div class="edit-group">
+                <div class="edit-item"><span class="edit-label">total:</span><input type="text" id="total-payment" class="edit-field"></div>
+                <div class="edit-item"><span class="edit-label">payment method:</span><input type="text" id="payment-method" class="edit-field"></div>
+            </div>
+            <div class="edit-group">
+                <div class="edit-item full-width"><span class="edit-label">category:</span>
+                    <select id="expense-category" class="edit-field">
+                        <option value="">none</option>
+                        <option value="travel">travel</option>
+                        <option value="meals">meals</option>
+                        <option value="office supplies">office supplies</option>
+                        <option value="entertainment">entertainment</option>
+                        <option value="training">training</option>
+                        <option value="transportation">transportation</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="verifyAndSave()" class="verify-button">verify and save</button>
+        </div>
+
+        <div id="previous-receipts">
+            <div>receipts dashboard:</div>
+            <table class="receipts-table">
+                <thead>
+                    <tr>
+                        <th>view</th>
+                        <th>store</th>
+                        <th>phone</th>
+                        <th>website</th>
+                        <th>address</th>
+                        <th>date</th>
+                        <th>time</th>
+                        <th>items</th>
+                        <th>total</th>
+                        <th>payment method</th>
+                        <th>category</th>
+                        <th>status</th>
+                    </tr>
+                </thead>
+                <tbody id="receipts-body">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Receipt Image Modal -->
+        <div id="receipt-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <img id="receipt-image" src="" alt="Receipt Image" style="display: none;">
+                <embed id="receipt-pdf" src="" type="application/pdf" style="display: none;">
+            </div>
+        </div>
+
+        <!-- Edit Receipt Modal -->
+        <div id="edit-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                <div class="edit-receipt-form">
+                    <div>Edit Receipt Details:</div>
+                    <div class="edit-group">
+                        <div class="edit-item"><span class="edit-label">store:</span><input type="text" id="edit-store-name" class="edit-field"></div>
+                        <div class="edit-item"><span class="edit-label">phone:</span><input type="text" id="edit-phone" class="edit-field"></div>
+                    </div>
+                    <div class="edit-group">
+                        <div class="edit-item"><span class="edit-label">website:</span><input type="text" id="edit-website" class="edit-field"></div>
+                        <div class="edit-item"><span class="edit-label">address:</span><input type="text" id="edit-address" class="edit-field"></div>
+                    </div>
+                    <div class="edit-group">
+                        <div class="edit-item"><span class="edit-label">date:</span><input type="text" id="edit-date" class="edit-field"></div>
+                        <div class="edit-item"><span class="edit-label">time:</span><input type="text" id="edit-time" class="edit-field"></div>
+                    </div>
+                    
+                    <div class="edit-group">
+                        <div class="edit-item"><span class="edit-label">total:</span><input type="text" id="edit-total-payment" class="edit-field"></div>
+                        <div class="edit-item"><span class="edit-label" style="width: 140px;">payment method:</span><input type="text" id="edit-payment-method" class="edit-field" style="width: calc(100% - 150px);"></div>
+                    </div>
+                    <div class="edit-group">
+                        <div class="edit-item full-width"><span class="edit-label">items:</span>
+                            <div id="edit-line-items" style="display: inline-block; width: calc(100% - 180px);"></div>
+                            <button onclick="addEditLineItem()" style="vertical-align: top">add item</button>
+                        </div>
+                    </div>
+                    <div class="edit-group">
+                        <div class="edit-item full-width"><span class="edit-label">category:</span>
+                            <select id="edit-expense-category" class="edit-field">
+                                <option value="">none</option>
+                                <option value="travel">travel</option>
+                                <option value="meals">meals</option>
+                                <option value="office supplies">office supplies</option>
+                                <option value="entertainment">entertainment</option>
+                                <option value="training">training</option>
+                                <option value="transportation">transportation</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="saveEditedReceipt()" class="verify-button">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('receipt-file');
+        const processButton = document.getElementById('process-button');
+        const loadingDiv = document.getElementById('loading');
+        const errorDiv = document.getElementById('error');
+        const resultDiv = document.getElementById('result');
+        const receiptsBody = document.getElementById('receipts-body');
+        let currentReceiptData = null;
+        let isSupervisor = false;
+        let currentEditingReceipt = null;
+
+        function addLineItem(value = '') {
+            const itemsDiv = document.getElementById('line-items');
+            const itemRow = document.createElement('div');
+            itemRow.style.marginBottom = '5px';
+            itemRow.innerHTML = `
+                <input type="text" class="edit-field line-item" value="${value}">
+                <button onclick="this.parentElement.remove()">remove</button>
+            `;
+            itemsDiv.appendChild(itemRow);
+        }
+
+        function getFormData() {
+            const lineItems = Array.from(document.querySelectorAll('.line-item'))
+                .map(input => input.value)
+                .filter(value => value.trim() !== '');
+
+            return {
+                store_name: document.getElementById('store-name').value,
+                phone: document.getElementById('phone').value,
+                website: document.getElementById('website').value,
+                address: document.getElementById('address').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                line_items: lineItems,
+                total_payment: document.getElementById('total-payment').value,
+                payment_method: document.getElementById('payment-method').value,
+                expense_category: document.getElementById('expense-category').value,
+                image_filename: currentReceiptData?.image_filename || '',
+                status: 'submitted'
+            };
+        }
+
+        async function verifyAndSave() {
+            try {
+                const data = getFormData();
+                
+                const response = await fetch('/save_receipt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save receipt');
+                }
+
+                // Clear form and reload receipts
+                resultDiv.style.display = 'none';
+                loadPreviousReceipts();
+                
+            } catch (error) {
+                errorDiv.textContent = error.message;
+            }
+        }
+
+        async function checkRole() {
+            try {
+                const response = await fetch('/check_role');
+                if (response.ok) {
+                    const data = await response.json();
+                    isSupervisor = data.role === 'supervisor';
+                    
+                    // Update table header based on role
+                    const headerRow = document.querySelector('.receipts-table thead tr');
+                    if (isSupervisor) {
+                        if (!headerRow.querySelector('th[data-field="username"]')) {
+                            const usernameHeader = document.createElement('th');
+                            usernameHeader.setAttribute('data-field', 'username');
+                            usernameHeader.textContent = 'username';
+                            headerRow.insertBefore(usernameHeader, headerRow.firstChild);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking role:', error);
+            }
+        }
+
+        async function updateReceiptStatus(username, processedAt, newStatus, buttonElement) {
+            try {
+                const response = await fetch('/update_receipt_status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        processed_at: processedAt,
+                        status: newStatus
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update status');
+                }
+
+                // Remove the buttons container and update the status text
+                const statusCell = buttonElement.closest('td');
+                statusCell.textContent = newStatus;
+                
+            } catch (error) {
+                console.error('Error updating status:', error);
+                errorDiv.textContent = error.message;
+            }
+        }
+
+        async function loadPreviousReceipts() {
+            try {
+                await checkRole();  // Check role before loading receipts
+                const response = await fetch('/my_receipts');
+                if (!response.ok) {
+                    throw new Error('Failed to load receipts');
+                }
+                
+                const receipts = await response.json();
+                receiptsBody.innerHTML = '';
+                const headerRow = document.querySelector('.receipts-table thead tr');
+                
+                if (receipts.length > 0) {
+                    receipts.reverse().forEach(receipt => {
+                        const row = document.createElement('tr');
+                        let rowHtml = '';
+                        
+                        // Add username column for supervisor
+                        if (isSupervisor) {
+                            if (!headerRow.querySelector('th[data-field="username"]')) {
+                                const usernameHeader = document.createElement('th');
+                                usernameHeader.setAttribute('data-field', 'username');
+                                usernameHeader.textContent = 'username';
+                                headerRow.insertBefore(usernameHeader, headerRow.firstChild.nextSibling);
+                            }
+                        }
+                        
+                        rowHtml = `
+                            ${isSupervisor ? `<td>${receipt.username || ''}</td>` : ''}
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    ${receipt.image_filename ? 
+                                        `<button onclick="viewReceipt('${receipt.image_filename}')" class="view-btn">View</button>` 
+                                        : 'No image'}
+                                    <button onclick='openEditModal(${JSON.stringify(receipt)}, "${receipt.username || ''}")' class="edit-btn">Edit</button>
+                                </div>
+                            </td>
+                            <td>${receipt.store_name || ''}</td>
+                            <td>${receipt.phone || ''}</td>
+                            <td>${receipt.website || ''}</td>
+                            <td>${receipt.address || ''}</td>
+                            <td>${receipt.date || ''}</td>
+                            <td>${receipt.time || ''}</td>
+                            <td>${receipt.line_items?.join(', ') || ''}</td>
+                            <td>${receipt.total_payment || ''}</td>
+                            <td>${receipt.payment_method || ''}</td>
+                            <td>${receipt.expense_category || ''}</td>
+                            <td>
+                                ${receipt.status || ''}
+                                ${isSupervisor && receipt.status === 'submitted' ? `
+                                    <div class="action-buttons">
+                                        <button onclick="updateReceiptStatus('${receipt.username}', '${receipt.processed_at}', 'approved', this)" class="approve-btn">Approve</button>
+                                        <button onclick="updateReceiptStatus('${receipt.username}', '${receipt.processed_at}', 'denied', this)" class="deny-btn">Deny</button>
+                                    </div>
+                                ` : ''}
+                            </td>
+                        `;
+                        row.innerHTML = rowHtml;
+                        receiptsBody.appendChild(row);
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    const colSpan = isSupervisor ? 13 : 12;  // Updated colspan to include view column
+                    row.innerHTML = `<td colspan="${colSpan}">no receipts yet</td>`;
+                    receiptsBody.appendChild(row);
+                }
+            } catch (error) {
+                console.error('Error loading receipts:', error);
+            }
+        }
+
+        // Load receipts when page loads
+        loadPreviousReceipts();
+
+        fileInput.addEventListener('change', () => {
+            processButton.disabled = !fileInput.files.length;
+        });
+
+        processButton.addEventListener('click', async () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            errorDiv.textContent = '';
+            resultDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+            processButton.disabled = true;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/process_receipt', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to process receipt');
+                }
+
+                // Store current receipt data
+                currentReceiptData = data;
+
+                // Fill in form fields
+                document.getElementById('store-name').value = data.store_name || '';
+                document.getElementById('phone').value = data.phone || '';
+                document.getElementById('website').value = data.website || '';
+                document.getElementById('address').value = data.address || '';
+                document.getElementById('date').value = data.date || '';
+                document.getElementById('time').value = data.time || '';
+                document.getElementById('total-payment').value = data.total_payment || '';
+                document.getElementById('payment-method').value = data.payment_method || '';
+                document.getElementById('expense-category').value = data.expense_category || '';
+
+                // Clear and populate line items
+                const lineItemsList = document.getElementById('line-items');
+                lineItemsList.innerHTML = '';
+                if (data.line_items && data.line_items.length) {
+                    data.line_items.forEach(item => {
+                        addLineItem(item);
+                    });
+                }
+
+                resultDiv.style.display = 'block';
+                
+            } catch (error) {
+                errorDiv.textContent = error.message;
+            } finally {
+                loadingDiv.style.display = 'none';
+                processButton.disabled = false;
+                fileInput.value = '';
+            }
+        });
+
+        function viewReceipt(filename) {
+            if (!filename) {
+                console.error('No image filename provided');
+                return;
+            }
+
+            const modal = document.getElementById('receipt-modal');
+            const modalContent = document.querySelector('.modal-content');
+            const receiptImage = document.getElementById('receipt-image');
+            const receiptPdf = document.getElementById('receipt-pdf');
+            const closeButton = document.querySelector('.close');
+            const fileExtension = filename.split('.').pop().toLowerCase();
+
+            // Reset display and error message
+            receiptImage.style.display = 'none';
+            receiptPdf.style.display = 'none';
+            errorDiv.textContent = '';
+
+            if (fileExtension === 'pdf') {
+                receiptPdf.src = `/uploads/${filename}`;
+                receiptPdf.style.display = 'block';
+                receiptPdf.style.width = '100%';
+                receiptPdf.style.height = '80vh';
+                
+                // Handle PDF load errors
+                receiptPdf.onerror = function() {
+                    console.error('Failed to load PDF file');
+                    modal.style.display = 'none';
+                    errorDiv.textContent = 'Failed to load PDF file';
+                }
+            } else {
+                receiptImage.src = `/uploads/${filename}`;
+                receiptImage.style.display = 'block';
+                
+                // Handle image load errors
+                receiptImage.onerror = function() {
+                    console.error('Failed to load image file');
+                    modal.style.display = 'none';
+                    errorDiv.textContent = 'Failed to load image file';
+                }
+            }
+
+            modal.style.display = 'block';
+
+            closeButton.onclick = function() {
+                modal.style.display = 'none';
+                receiptPdf.src = ''; // Clear PDF source when closing
+                receiptImage.src = ''; // Clear image source when closing
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    receiptPdf.src = ''; // Clear PDF source when closing
+                    receiptImage.src = ''; // Clear image source when closing
+                }
+            }
+        }
+
+        function addEditLineItem(value = '') {
+            const itemsDiv = document.getElementById('edit-line-items');
+            const itemRow = document.createElement('div');
+            itemRow.style.marginBottom = '5px';
+            itemRow.style.display = 'flex';
+            itemRow.style.gap = '5px';
+            itemRow.innerHTML = `
+                <input type="text" class="edit-field edit-line-item" value="${value}" style="flex: 1;">
+                <button onclick="this.parentElement.remove()">remove</button>
+            `;
+            itemsDiv.appendChild(itemRow);
+        }
+
+        function openEditModal(receipt, username) {
+            const modal = document.getElementById('edit-modal');
+            currentEditingReceipt = { ...receipt, username };
+
+            // Populate form fields
+            document.getElementById('edit-store-name').value = receipt.store_name || '';
+            document.getElementById('edit-phone').value = receipt.phone || '';
+            document.getElementById('edit-website').value = receipt.website || '';
+            document.getElementById('edit-address').value = receipt.address || '';
+            document.getElementById('edit-date').value = receipt.date || '';
+            document.getElementById('edit-time').value = receipt.time || '';
+            document.getElementById('edit-total-payment').value = receipt.total_payment || '';
+            document.getElementById('edit-payment-method').value = receipt.payment_method || '';
+            document.getElementById('edit-expense-category').value = receipt.expense_category || '';
+
+            // Clear and populate line items
+            const lineItemsList = document.getElementById('edit-line-items');
+            lineItemsList.innerHTML = '';
+            if (receipt.line_items && receipt.line_items.length) {
+                receipt.line_items.forEach(item => {
+                    addEditLineItem(item);
+                });
+            }
+
+            modal.style.display = 'block';
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-modal');
+            modal.style.display = 'none';
+            currentEditingReceipt = null;
+        }
+
+        async function saveEditedReceipt() {
+            try {
+                const editedData = {
+                    ...currentEditingReceipt,
+                    store_name: document.getElementById('edit-store-name').value,
+                    phone: document.getElementById('edit-phone').value,
+                    website: document.getElementById('edit-website').value,
+                    address: document.getElementById('edit-address').value,
+                    date: document.getElementById('edit-date').value,
+                    time: document.getElementById('edit-time').value,
+                    line_items: Array.from(document.querySelectorAll('.edit-line-item'))
+                        .map(input => input.value)
+                        .filter(value => value.trim() !== ''),
+                    total_payment: document.getElementById('edit-total-payment').value,
+                    payment_method: document.getElementById('edit-payment-method').value,
+                    expense_category: document.getElementById('edit-expense-category').value
+                };
+
+                const response = await fetch('/update_receipt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(editedData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update receipt');
+                }
+
+                closeEditModal();
+                loadPreviousReceipts();
+                
+            } catch (error) {
+                errorDiv.textContent = error.message;
+            }
+        }
+    </script>
+</body>
+</html> 

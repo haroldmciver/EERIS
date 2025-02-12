@@ -1,0 +1,298 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px auto;
+    max-width: 1200px;
+    background-color: white;
+    line-height: 1.6;
+    padding: 0 20px;
+}
+.container {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 1100px;
+}
+.upload-section {
+    margin: 20px 0;
+}
+#process-button {
+    margin-top: 20px;
+}
+.result-section {
+    display: none;
+    text-align: left;
+    margin-top: 30px;
+    white-space: pre-line;
+    line-height: 1;
+}
+.error {
+    color: red;
+}
+.loading {
+    display: none;
+    margin: 20px 0;
+}
+#previous-receipts {
+    margin-right: 60px;
+}
+.receipts-table {
+    width: 100%;
+    margin: 30px -60px;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 12px;
+    position: relative;
+    left: -60px;
+}
+.receipts-table th, .receipts-table td {
+    padding: 6px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+    font-size: 11px;
+}
+.receipts-table th {
+    border-bottom: 2px solid #eee;
+    font-size: 12px;
+    font-weight: bold;
+}
+.edit-field {
+    width: calc(100% - 110px);
+    display: inline-block;
+    margin: 0;
+    padding: 1px;
+    line-height: 1;
+    vertical-align: top;
+}
+.edit-row {
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+.edit-group {
+    display: flex;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    line-height: 1;
+}
+.edit-item {
+    flex: 1;
+    white-space: nowrap;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    padding-right: 20px;
+    position: relative;
+    max-width: 50%;
+}
+.edit-item:last-child {
+    padding-right: 0;
+    flex: 1;
+}
+.edit-label {
+    display: inline-block;
+    width: 100px;
+}
+
+/* Special case for payment method label */
+.edit-item:has(#payment-method) .edit-label {
+    width: 140px;
+}
+
+.edit-item:has(#payment-method) .edit-field {
+    width: calc(100% - 150px);
+}
+
+.full-width {
+    width: 100%;
+    padding-right: 0;
+}
+.full-width .edit-field {
+    width: calc(100% - 110px);
+}
+.verify-button {
+    padding: 6px 12px;
+    margin-top: 10px;
+}
+#line-items {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    display: inline-block;
+    width: calc(100% - 150px);
+}
+#line-items div {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+#line-items input {
+    width: calc(100% - 70px);
+}
+.edit-item.full-width {
+    max-width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.approve-btn, .deny-btn {
+    padding: 2px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.approve-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.approve-btn:hover {
+    background-color: #45a049;
+}
+
+.deny-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.deny-btn:hover {
+    background-color: #da190b;
+}
+
+.receipt-upload-container {
+    border: 2px solid #eee;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 90vh;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.close:hover {
+    color: #555;
+}
+
+#receipt-image {
+    max-width: 100%;
+    max-height: calc(90vh - 60px);
+    display: block;
+    margin: 0 auto;
+}
+
+#receipt-pdf {
+    width: 100%;
+    height: calc(90vh - 60px);
+    border: none;
+}
+
+.view-btn {
+    padding: 2px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    background-color: #2196F3;
+    color: white;
+}
+
+.view-btn:hover {
+    background-color: #0b7dda;
+}
+
+.edit-btn {
+    padding: 2px 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    background-color: #FF9800;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #F57C00;
+}
+
+.edit-receipt-form {
+    text-align: left;
+    padding: 20px;
+    max-height: calc(90vh - 60px);
+    overflow-y: auto;
+}
+
+/* Ensure edit modal content is scrollable */
+#edit-modal .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Style for edit form groups */
+#edit-modal .edit-group {
+    margin-bottom: 10px;
+}
+
+#edit-modal .edit-field {
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+#edit-modal .verify-button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#edit-modal .verify-button:hover {
+    background-color: #45a049;
+}
+
+

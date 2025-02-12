@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Receipt Processor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 600px;
+            background-color: white;
+            line-height: 1.6;
+        }
+        .container {
+            text-align: center;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        input {
+            margin: 5px 0;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>login</div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <input type="text" id="username" placeholder="username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">login</button>
+            </div>
+        </form>
+        
+        <div>
+            <a href="/signup">signup</a>
+        </div>
+        
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const errorDiv = document.getElementById('error');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Login failed');
+                }
+
+                // Redirect to main page on success
+                window.location.href = '/';
+            } catch (error) {
+                errorDiv.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html> 
