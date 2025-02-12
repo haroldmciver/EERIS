@@ -10,6 +10,7 @@ EERIS is a web application that allows users to upload receipts and have them pr
 2. Install the dependencies
 
 ```
+cd backend
 pip install -r requirements.txt
 ```
 
