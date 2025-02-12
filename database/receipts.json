@@ -51,7 +51,7 @@
         "payment_method": "CREDIT",
         "expense_category": "meals",
         "image_filename": "8cedc5bf-8896-4eb9-811b-00eb6a15f5c7.png",
-        "status": "submitted",
+        "status": "denied",
         "processed_at": "2025-02-12T15:42:36.831591"
       }
     ],
