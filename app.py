@@ -7,25 +7,25 @@ from datetime import datetime
 import uuid
 
 # Add backend directory to Python path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'backend'))
+sys.path.append('backend')
 
-from ocr_utils import extract_text_from_file
-from parse_receipt import parse_receipt_text, format_receipt_data
+from image_to_text import extract_text_from_file
+from text_scrapper import parse_receipt_text, format_receipt_data
 
 app = Flask(__name__,
-           template_folder='pages', 
-           static_folder='css')      
+           template_folder='frontend/pages', 
+           static_folder='frontend/css')      
 app.secret_key = 'your-secret-key-here'  # Change this to a secure secret key
-app.config['UPLOAD_FOLDER'] = 'uploads'  # Store files in frontend/uploads
+app.config['UPLOAD_FOLDER'] = 'frontend/uploads'  # Store files in frontend/uploads
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 # Database paths
-USERS_DB = '../database/users.json'
-RECEIPTS_DB = '../database/receipts.json'
+USERS_DB = 'database/users.json'
+RECEIPTS_DB = 'database/receipts.json'
 
 # Ensure directories exist
 os.makedirs(os.path.join(os.path.dirname(__file__), app.config['UPLOAD_FOLDER']), exist_ok=True)
-os.makedirs('../database', exist_ok=True)
+os.makedirs('database', exist_ok=True)
 
 # Create database files if they don't exist
 if not os.path.exists(USERS_DB):
@@ -61,7 +61,7 @@ def save_receipts(data):
 def index():
     if 'username' not in session:
         return redirect(url_for('login'))
-    return render_template('index.html', username=session['username'])
+    return render_template('dashboard.html', username=session['username'])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
