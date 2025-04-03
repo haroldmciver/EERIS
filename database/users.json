@@ -1,0 +1,24 @@
+{
+  "users": {
+    "harold": {
+      "password": "123",
+      "created_at": "2025-02-11T23:37:47.397622",
+      "role": "user"
+    },
+    "nathan": {
+      "password": "123",
+      "created_at": "2025-02-12T11:00:10.638246",
+      "role": "user"
+    },
+    "supervisor": {
+      "password": "123",
+      "created_at": "2025-02-12T12:00:00.000000",
+      "role": "supervisor"
+    },
+    "aditi": {
+      "password": "123",
+      "created_at": "2025-02-12T16:25:54.988346",
+      "role": "supervisor"
+    }
+  }
+}

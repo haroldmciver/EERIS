@@ -1,0 +1,5 @@
+# Dependencies
+frontend/node_modules/
+venv/
+backend/__pycache__/
+.vscode/settings.json

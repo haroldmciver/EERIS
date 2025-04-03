@@ -1,0 +1,311 @@
+{
+  "receipts": {
+    "harold": [
+      {
+        "store_name": "Champs Sports",
+        "phone": "813-979-9771",
+        "website": "https://www.ChampsSports.com",
+        "address": "2381 E FOWLER AVE, TAMPA, FL 33612, United States",
+        "date": "2024-12-15",
+        "time": "15:38",
+        "line_items": [
+          "PUMA MB 04 LA FRANCE-BL/GY/BL"
+        ],
+        "total_payment": "118",
+        "payment_method": "Visa",
+        "expense_category": "travel",
+        "image_filename": "6cf690f1-a996-40cb-bcd6-3f9fb1c50809.png",
+        "status": "denied",
+        "processed_at": "2025-02-12T12:58:08.777904",
+        "id": "2025-02-12T12:58:08.777904",
+        "username": "harold"
+      },
+      {
+        "store_name": "BATTLE BEARS",
+        "phone": "37024694408",
+        "website": "battlebears.com",
+        "address": "123 street",
+        "date": "2025-02-02",
+        "time": "18:51",
+        "line_items": [
+          "Pink Huggable Bear Plushie"
+        ],
+        "total_payment": "200.68",
+        "payment_method": "cash",
+        "expense_category": "meals",
+        "image_filename": "5b72ccff-2e9a-4ee5-a033-7de5e3f504f7.png",
+        "status": "approved",
+        "processed_at": "2025-02-12T13:07:38.505779",
+        "username": "harold",
+        "id": "2025-02-12T13:07:38.505779"
+      },
+      {
+        "store_name": "Main Street Restaurant",
+        "phone": "575-1628095",
+        "website": "",
+        "address": "6332 Business Drive, Suite 528, Palo Alto California 94301",
+        "date": "2017-04-07",
+        "time": "11:36",
+        "line_items": [
+          "Sub Total USD$ 25.23",
+          "Te",
+          "USD$ 29.01"
+        ],
+        "total_payment": "$29.01",
+        "payment_method": "CREDIT",
+        "expense_category": "office supplies",
+        "image_filename": "8cedc5bf-8896-4eb9-811b-00eb6a15f5c7.png",
+        "status": "denied",
+        "processed_at": "2025-02-12T15:42:36.831591",
+        "username": "harold",
+        "id": "2025-02-12T15:42:36.831591"
+      },
+      {
+        "store_name": "Apple Short Pump Town Center",
+        "phone": "804-420-3000",
+        "website": "https://www.apple.com/retail/shortpump",
+        "address": "11800 W. Broad St. Ste. 1138, Richmond, VA 23233",
+        "date": "2024-06-02",
+        "time": "17:12",
+        "line_items": [
+          "EarPods (Lightning Connector)",
+          "EarPods (3.5mm Headphone Plug)",
+          "Lightning to 3.5 mm Headphone Jack Adapter"
+        ],
+        "total_payment": "$9.54",
+        "payment_method": "VISA CREDIT (Contactless)",
+        "expense_category": "office supplies",
+        "image_filename": "8afe22c1-0278-48cf-9a0e-5e52b9de3b0d.pdf",
+        "status": "submitted",
+        "processed_at": "2025-02-12T19:06:33.617970"
+      },
+      {
+        "store_name": "FOWLER PLAZA SOUTH",
+        "phone": "813-979-9771",
+        "website": "https://www.ChampsSports.com",
+        "address": "2381 E FOWLER AVE, TAMPA, FL 33612, United States",
+        "date": "2024-12-15",
+        "time": "15:38",
+        "line_items": [
+          "PUMA MB 04 LA FRANCE-BL/GY/BL"
+        ],
+        "total_payment": "$118.24",
+        "payment_method": "Visa",
+        "expense_category": "entertainment",
+        "image_filename": "fb74a93b-4c22-42e3-86d4-9acfd21d545f.png",
+        "status": "submitted",
+        "processed_at": "2025-02-12T22:15:56.971500"
+      },
+      {
+        "address": "8536 Lazy River Drive Local CST, Tampa FL 33617-6407, United States",
+        "date": "2025-02-11",
+        "expense_category": "entertainment",
+        "image_filename": "f25a7ec2-db18-4b7e-a770-aa94eef78745.png",
+        "line_items": [
+          "Individual (Monthly) Subscription"
+        ],
+        "payment_method": "Visa",
+        "phone": "",
+        "store_name": "Apple Music",
+        "time": "",
+        "total_payment": "$6.80",
+        "website": "https://www.apple.com/music/",
+        "processed_at": "2025-04-02T16:15:18.230552",
+        "status": "submitted"
+      },
+      {
+        "address": "11800 W. Broad St. Ste. 1138, Richmond, VA 23233",
+        "date": "2024-06-02",
+        "expense_category": "office supplies",
+        "image_filename": "5dc19130-14b9-4798-91af-23fcbbedd066.pdf",
+        "line_items": [
+          "EarPods (Lightning Connector)",
+          "EarPods (3.5mm Headphone Plug)",
+          "Lightning to 3.5 mm Headphone Jack Adapter"
+        ],
+        "payment_method": "VISA CREDIT (Contactless)",
+        "phone": "804-420-3000",
+        "store_name": "Apple Short Pump Town Center",
+        "time": "17:12",
+        "total_payment": "9.69",
+        "website": "https://www.apple.com/retail/shortpump",
+        "processed_at": "2025-04-02T20:33:20.700170",
+        "status": "approved",
+        "username": "harold",
+        "id": "2025-04-02T20:33:20.700170"
+      }
+    ],
+    "nathan": [
+      {
+        "store_name": "Apple Short Pump Town Center",
+        "phone": "804-420-3000",
+        "website": "https://www.apple.com/retail/shortpump",
+        "address": "11800 W. Broad St. Ste. 1138, Richmond, VA 23233",
+        "date": "2024-06-02",
+        "time": "17:12",
+        "line_items": [
+          "EarPods (Lightning Connector)",
+          "EarPods (3.5mm Headphone Plug)"
+        ],
+        "total_payment": "$9.54",
+        "payment_method": "VISA CREDIT (Contactless)",
+        "expense_category": "office supplies",
+        "image_filename": "481c84ad-8689-4101-8b13-9c320961efed.pdf",
+        "status": "denied",
+        "processed_at": "2025-02-12T13:17:39.906124"
+      },
+      {
+        "store_name": "Apple Short Pump Town Center",
+        "phone": "804-420-3000",
+        "website": "https://www.apple.com/retail/shortpump",
+        "address": "11800 W. Broad St. Ste. 1138, Richmond, VA 23233",
+        "date": "2024-06-02",
+        "time": "17:12",
+        "line_items": [
+          "EarPods (USB-C Connector)"
+        ],
+        "total_payment": "69.42",
+        "payment_method": "VISA CREDIT (Contactless)",
+        "expense_category": "office supplies",
+        "image_filename": "62b72e4d-d933-465d-86a5-b35ac2136a17.pdf",
+        "status": "approved",
+        "processed_at": "2025-02-12T13:27:45.020856",
+        "username": "nathan",
+        "id": "2025-02-12T13:27:45.020856"
+      },
+      {
+        "store_name": "Apple Short Pump Town Center",
+        "phone": "804-420-3000",
+        "website": "https://www.apple.com/retail/shortpump",
+        "address": "11800 W. Broad St. Ste. 1138, Richmond, VA 23233",
+        "date": "2024-06-02",
+        "time": "17:12",
+        "line_items": [
+          "EarPods (Lightning Connector)",
+          "EarPods (3.5mm Headphone Plug)"
+        ],
+        "total_payment": "$9.54",
+        "payment_method": "VISA CREDIT (Contactless)",
+        "expense_category": "office supplies",
+        "image_filename": "baf5561d-fe26-4a7b-a60c-f38dc990a3a9.pdf",
+        "status": "approved",
+        "processed_at": "2025-02-12T15:39:03.365263",
+        "username": "nathan"
+      },
+      {
+        "store_name": "Pear Store",
+        "phone": "804-420-3000",
+        "website": "https://www.apple.com/retail/shortpump",
+        "address": "11800 W. Broad St. Ste. 1138, Richmond, VA 23233",
+        "date": "2024-06-02",
+        "time": "17:11",
+        "line_items": [
+          "EarPods (Lightning Connector)",
+          "EarPods (3.5mm Headphone Plug)",
+          "Lightning to 3.5 mm Headphone Jack Adapter"
+        ],
+        "total_payment": "$9.54",
+        "payment_method": "VISA CREDIT (Contactless)",
+        "expense_category": "office supplies",
+        "image_filename": "ec4c28a7-cf91-4aab-8fd1-1e68fc9bf810.pdf",
+        "status": "submitted",
+        "processed_at": "2025-02-25T20:49:15.417399"
+      },
+      {
+        "store_name": "Apple Music",
+        "phone": "",
+        "website": "https://www.apple.com/music/",
+        "address": "8536 Lazy River Drive Local CST, Tampa FL 33617-6407, United States",
+        "date": "2025-02-11",
+        "time": "",
+        "line_items": [
+          "Individual (Monthly) Subscription"
+        ],
+        "total_payment": "$6.80",
+        "payment_method": "Visa",
+        "expense_category": "entertainment",
+        "image_filename": "35b76381-e9f3-4b6b-88f4-9aa82aef0b74.png",
+        "status": "submitted",
+        "processed_at": "2025-02-25T20:54:32.969716"
+      }
+    ],
+    "supervisor": [
+      {
+        "store_name": "Apple Short Pump Town Center",
+        "phone": "804-420-3000",
+        "website": "https://www.apple.com/retail/shortpump",
+        "address": "11800 W. Broad St. Ste. 1138, Richmond, VA 23233",
+        "date": "2024-06-02",
+        "time": "17:11",
+        "line_items": [
+          "EarPods (Lightning Connector)",
+          "EarPods (3.5mm Headphone Plug)",
+          "Lightning to 3.5 mm Headphone Jack Adapter"
+        ],
+        "total_payment": "$9.54",
+        "payment_method": "VISA CREDIT (Contactless)",
+        "expense_category": "office supplies",
+        "image_filename": "c3bf3ea6-82e3-4fbc-809e-a4bb132c6c49.pdf",
+        "status": "denied",
+        "processed_at": "2025-02-19T13:20:38.630690"
+      },
+      {
+        "address": "2381 E FOWLER AVE, TAMPA, FL 33612, United States",
+        "date": "2024-12-15",
+        "expense_category": "entertainment",
+        "image_filename": "a1391818-24aa-4751-9f15-2d93273c6766.png",
+        "line_items": [
+          "PUMA MB 04 LA FRANCE-BL/GY/BL"
+        ],
+        "payment_method": "Visa",
+        "phone": "813-979-9771",
+        "store_name": "FOWLER PLAZA SOUTH",
+        "time": "15:38",
+        "total_payment": "$118.24",
+        "website": "https://www.ChampsSports.com",
+        "processed_at": "2025-04-02T20:50:28.337258",
+        "status": "denied"
+      },
+      {
+        "address": "",
+        "date": "2025-01-15",
+        "expense_category": "meals",
+        "image_filename": "7afc9359-edfa-457a-b17a-88de1b93d7f4.png",
+        "line_items": [
+          "1x #20 Elite Chicken Bacon Ranch 12\"",
+          "+ Artisan Italian Bread",
+          "+ Toasted"
+        ],
+        "payment_method": "Credit Card",
+        "phone": "",
+        "store_name": "Cooper Subway",
+        "time": "13:41",
+        "total_payment": "$12.77",
+        "website": "",
+        "processed_at": "2025-04-02T21:26:04.306554",
+        "status": "denied"
+      }
+    ],
+    "aditi": [
+      {
+        "store_name": "Cooper Subway",
+        "phone": "",
+        "website": "",
+        "address": "",
+        "date": "2025-01-15",
+        "time": "13:41",
+        "line_items": [
+          "1x #20 Elite Chicken Bacon Ranch 12",
+          "+ Artisan Italian Bread",
+          "+ Toasted"
+        ],
+        "total_payment": "$12.77",
+        "payment_method": "Credit Card",
+        "expense_category": "meals",
+        "image_filename": "12be8a70-3904-4ad1-a414-e555934597b4.png",
+        "status": "approved",
+        "processed_at": "2025-02-12T22:07:01.885721"
+      }
+    ]
+  }
+}
